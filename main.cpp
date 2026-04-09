@@ -329,6 +329,33 @@ public:
             }
         }
     }
+
+    void showClassAverage() {
+        if (students.empty()) {
+            cout << "\n[Notice] No students available.\n";
+            return;
+        }
+
+        double totalPercentage = 0.0;
+        int count = 0;
+
+        for (const auto& s : students) {
+            if (s.getTotalClasses() > 0) {
+                totalPercentage += s.getAttendancePercentage();
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            cout << "\n[Notice] No attendance data available.\n";
+            return;
+        }
+
+        cout << "\n=== Class Average Attendance ===\n";
+        cout << "Average Attendance: " << fixed << setprecision(2)
+             << (totalPercentage / count) << "%\n";
+        cout << "===============================\n";
+    }
 };
 
 // --- Main Function ---
@@ -344,7 +371,8 @@ int main() {
         cout << "4. Generate Class Reports & Shortage List\n";
         cout << "5. Predict Attendance Requirement\n";
         cout << "6. Show Top Attendance Students\n";
-        cout << "7. Exit\n";
+        cout << "7. Show Class Average Attendance\n";
+        cout << "8. Exit\n";
         cout << "Enter choice: ";
         cin >> choice;
 
@@ -391,6 +419,9 @@ int main() {
             manager.showTopper();
         }
         else if (choice == 7) {
+            manager.showClassAverage();
+        }
+        else if (choice == 8) {
             break;
         }
         else {
